@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 
@@ -9,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 // Connect mongoose to mongo db:
 mongoose.connect("mongodb://localhost:27017/fruitsdb", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 mongoose.connection.once("open", () => {
   console.log("connected to mongo");
@@ -54,18 +55,18 @@ app.get("/fruits/seed", (req, res) => {
       {
         name: "grapefruit",
         color: "pink",
-        readyToEat: true
+        readyToEat: true,
       },
       {
         name: "grape",
         color: "purple",
-        readyToEat: false
+        readyToEat: false,
       },
       {
         name: "avocado",
         color: "green",
-        readyToEat: true
-      }
+        readyToEat: true,
+      },
     ],
     (error, data) => {
       console.log(data);
@@ -79,12 +80,12 @@ app.get("/fruits/seed", (req, res) => {
 app.get("/fruits/:id", (req, res) => {
   Fruit.findById(req.params.id, (err, foundFruit) => {
     res.render("show.ejs", {
-      fruit: foundFruit
+      fruit: foundFruit,
     });
   });
 });
 
 // Web server:
-app.listen(3000, () => {
+app.listen(Process.env.PORT, () => {
   console.log("listening");
 });
