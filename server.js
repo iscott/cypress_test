@@ -85,7 +85,13 @@ app.get("/fruits/:id", (req, res) => {
   });
 });
 
+// Root redirect:
+
+app.get("/", (req, res) => {
+  res.redirect("/fruits");
+});
+
 // Web server:
-app.listen(Process.env.PORT, () => {
-  console.log("listening");
+app.listen(process.env.PORT, () => {
+  console.log("listening on port: " + process.env.PORT);
 });
